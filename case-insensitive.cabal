@@ -1,0 +1,22 @@
+name:          case-insensitive
+version:       0.1
+cabal-version: >=1.6
+build-type:    Simple
+license:       BSD3
+license-file:  LICENSE
+copyright:     2010 Bas van Dijk
+author:        Bas van Dijk
+maintainer:    Bas van Dijk <v.dijk.bas@gmail.com>
+category:      Data
+synopsis:      Case insensitive comparison for string-like types.
+
+source-repository head
+  Type:     darcs
+  Location: http://code.haskell.org/~basvandijk/code/case-insensitive
+
+Library
+  GHC-Options: -Wall
+  build-depends: base                 >= 4     && < 4.3
+               , base-unicode-symbols >= 0.1.1 && < 0.3
+               , bytestring           >= 0.9   && < 0.10
+  exposed-modules: Data.CaseInsensitive
