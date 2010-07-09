@@ -35,18 +35,19 @@ import Data.String   ( IsString(fromString) )
 import Data.Typeable ( Typeable )
 import Data.Word     ( Word8 )
 import Data.Char     ( Char )
-import qualified Data.Char as Char ( toLower )
 import Text.Read     ( Read(readPrec) )
 import Text.Show     ( Show(showsPrec), ShowS )
+
+import qualified Data.Char as Char ( toLower )
 
 -- from base-unicode-symbols:
 import Data.Function.Unicode ( (∘) )
 
 -- from bytestring:
-import Data.ByteString.Internal ( c2w, w2c )
-
 import qualified Data.ByteString      as B  ( ByteString, map )
 import qualified Data.ByteString.Lazy as BL ( ByteString, map )
+
+import Data.ByteString.Internal ( c2w, w2c )
 
 
 --------------------------------------------------------------------------------
@@ -60,7 +61,7 @@ Note that @CI s@ has an instance for 'IsString' which together with the
 string literals as in:
 
 @
-\> (\"Get\" :: 'CI' String) == (\"GET\" :: 'CI' String)
+\> (\"Content-Type\" :: 'CI' String) == (\"CONTENT-TYPE\" :: 'CI' String)
 True
 @
 
@@ -70,8 +71,7 @@ data CI s = CI { original   ∷ s -- ^ Retrieve the original string-like value.
                }
           deriving Typeable
 
--- | Wrap a string-like value into the case insenstive wrapper so that it can be
--- compared case insensitively.
+-- | Make the given string-like value case insensitive.
 ci ∷ ToLower s ⇒ s → CI s
 ci s = CI s (toLower s)
 
