@@ -26,7 +26,7 @@ module Data.CaseInsensitive ( CI
 
 -- from base:
 import Data.Eq       ( Eq((==)) )
-import Data.Ord      ( Ord((<=)) )
+import Data.Ord      ( Ord(compare) )
 import Data.Function ( on )
 import Data.Functor  ( fmap )
 import Data.List     ( map )
@@ -90,7 +90,7 @@ instance Eq s ⇒ Eq (CI s) where
     (==) = (==) `on` lowerCased
 
 instance Ord s ⇒ Ord (CI s) where
-    (<=) = (<=) `on` lowerCased
+    compare = compare `on` lowerCased
 
 instance (Read s, ToLower s) ⇒ Read (CI s) where
     readPrec = fmap ci readPrec
