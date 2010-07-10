@@ -54,7 +54,8 @@ import Data.ByteString.Internal ( c2w, w2c )
 -- Case Insensitive Strings
 --------------------------------------------------------------------------------
 
-{-| A @CI s@ provides /C/ase /I/nsensitive comparison for the string-like @s@.
+{-| A @CI s@ provides /C/ase /I/nsensitive comparison for the string-like type
+@s@ (for example: @String@, @ByteString@, @ShowS@, etc.).
 
 Note that @CI s@ has an instance for 'IsString' which together with the
 @OverloadedStrings@ LANGUAGE extension allows you to write case insensitive
