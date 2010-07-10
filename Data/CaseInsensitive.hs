@@ -66,8 +66,8 @@ True
 @
 
 -}
-data CI s = CI { original   ∷ s -- ^ Retrieve the original string-like value.
-               , lowerCased ∷ s
+data CI s = CI { original   ∷ !s -- ^ Retrieve the original string-like value.
+               , lowerCased ∷ !s
                }
           deriving Typeable
 
