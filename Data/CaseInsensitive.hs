@@ -49,6 +49,10 @@ import qualified Data.ByteString.Lazy as BL ( ByteString, map )
 
 import Data.ByteString.Internal ( c2w, w2c )
 
+-- from text:
+import qualified Data.Text      as T  ( Text, toLower )
+import qualified Data.Text.Lazy as TL ( Text, toLower )
+
 
 --------------------------------------------------------------------------------
 -- Case Insensitive Strings
@@ -112,6 +116,8 @@ instance ToLower Word8           where toLower = c2w ∘ toLower ∘ w2c
 instance ToLower s ⇒ ToLower [s] where toLower = map toLower
 instance ToLower B.ByteString    where toLower = B.map toLower
 instance ToLower BL.ByteString   where toLower = BL.map toLower
+instance ToLower T.Text          where toLower = T.toLower
+instance ToLower TL.Text         where toLower = TL.toLower
 instance ToLower ShowS           where toLower = (toLower ∘)
 instance ToLower (CI s)          where toLower (CI _ l) = CI l l
 
