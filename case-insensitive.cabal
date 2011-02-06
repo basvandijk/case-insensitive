@@ -9,6 +9,11 @@ author:        Bas van Dijk
 maintainer:    Bas van Dijk <v.dijk.bas@gmail.com>
 category:      Data, Text
 synopsis:      Case insensitive string comparison
+description:   The module @Data.CaseInsensitive@ provides the 'CI' type
+               constructor which can be parameterised by a string-like
+               type like: 'String', 'ByteString', 'Text',
+               etc.. Comparisons of values of the resulting type are
+               then insensitive to cases.
 
 source-repository head
   Type:     darcs
