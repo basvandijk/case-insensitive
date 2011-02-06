@@ -59,14 +59,14 @@ import qualified Data.Text.Lazy as TL ( Text, toLower )
 --------------------------------------------------------------------------------
 
 {-| A @CI s@ provides /C/ase /I/nsensitive comparison for the string-like type
-@s@ (for example: @String@, @ByteString@, @ShowS@, etc.).
+@s@ (for example: @String@, @Text@, @ByteString@, @ShowS@, etc.).
 
 Note that @CI s@ has an instance for 'IsString' which together with the
 @OverloadedStrings@ LANGUAGE extension allows you to write case insensitive
 string literals as in:
 
 @
-\> (\"Content-Type\" :: 'CI' String) == (\"CONTENT-TYPE\" :: 'CI' String)
+\> (\"Content-Type\" :: 'CI' Text) == (\"CONTENT-TYPE\" :: 'CI' Text)
 True
 @
 
