@@ -11,13 +11,20 @@
 -- License     :  BSD-style (see the file LICENSE)
 -- Maintainer  :  Bas van Dijk <v.dijk.bas@gmail.com>
 --
+-- This module is intended to be imported qualified. May I suggest:
+--
+-- @
+-- import          Data.CaseInsensitive   ( CI )
+-- import qualifed Data.CaseInsensitivee as CI
+-- @
+--
 -----------------------------------------------------------------------------
 
 module Data.CaseInsensitive ( CI
-                            , ci
+                            , mk
                             , original
-                            , mapCI
-                            , ToLower(toLower)
+                            , map
+                            , FoldCase(foldCase)
                             ) where
 
 --------------------------------------------------------------------------------
@@ -25,33 +32,31 @@ module Data.CaseInsensitive ( CI
 --------------------------------------------------------------------------------
 
 -- from base:
+import Data.Char     ( toLower )
 import Data.Eq       ( Eq((==)) )
 import Data.Ord      ( Ord(compare) )
 import Data.Function ( on )
 import Data.Functor  ( fmap )
-import Data.List     ( map )
 import Data.Monoid   ( Monoid(mempty, mappend) )
 import Data.String   ( IsString(fromString) )
 import Data.Typeable ( Typeable )
-import Data.Word     ( Word8 )
 import Data.Char     ( Char )
 import Text.Read     ( Read(readPrec) )
 import Text.Show     ( Show(showsPrec), ShowS )
-
-import qualified Data.Char as Char ( toLower )
+import qualified Data.List as L ( map )
 
 -- from base-unicode-symbols:
 import Data.Function.Unicode ( (∘) )
 
 -- from bytestring:
-import qualified Data.ByteString      as B  ( ByteString, map )
-import qualified Data.ByteString.Lazy as BL ( ByteString, map )
-
-import Data.ByteString.Internal ( c2w, w2c )
+import qualified Data.ByteString             as B    ( ByteString )
+import qualified Data.ByteString.Lazy        as BL   ( ByteString )
+import qualified Data.ByteString.Char8       as C8   ( map )
+import qualified Data.ByteString.Lazy.Char8  as BLC8 ( map )
 
 -- from text:
-import qualified Data.Text      as T  ( Text, toLower )
-import qualified Data.Text.Lazy as TL ( Text, toLower )
+import qualified Data.Text      as T  ( Text, toCaseFold )
+import qualified Data.Text.Lazy as TL ( Text, toCaseFold )
 
 
 --------------------------------------------------------------------------------
@@ -62,11 +67,11 @@ import qualified Data.Text.Lazy as TL ( Text, toLower )
 @s@ (for example: @String@, @Text@, @ByteString@, @ShowS@, etc.).
 
 Note that @CI s@ has an instance for 'IsString' which together with the
-@OverloadedStrings@ LANGUAGE extension allows you to write case insensitive
+@OverloadedStrings@ language extension allows you to write case insensitive
 string literals as in:
 
 @
-\> (\"Content-Type\" :: 'CI' Text) == (\"CONTENT-TYPE\" :: 'CI' Text)
+\> (\"Content-Type\" :: 'CI' 'T.Text') == (\"CONTENT-TYPE\" :: 'CI' 'T.Text')
 True
 @
 
@@ -77,15 +82,15 @@ data CI s = CI { original   ∷ !s -- ^ Retrieve the original string-like value.
           deriving Typeable
 
 -- | Make the given string-like value case insensitive.
-ci ∷ ToLower s ⇒ s → CI s
-ci s = CI s (toLower s)
+mk ∷ FoldCase s ⇒ s → CI s
+mk s = CI s (foldCase s)
 
--- | Transform the wrapped string-like value.
-mapCI ∷ ToLower s2 ⇒ (s1 → s2) → (CI s1 → CI s2)
-mapCI f = ci ∘ f ∘ original
+-- | Transform the original string-like value but keep it case insensitive.
+map ∷ FoldCase s2 ⇒ (s1 → s2) → (CI s1 → CI s2)
+map f = mk ∘ f ∘ original
 
-instance (IsString s, ToLower s) ⇒ IsString (CI s) where
-    fromString = ci ∘ fromString
+instance (IsString s, FoldCase s) ⇒ IsString (CI s) where
+    fromString = mk ∘ fromString
 
 instance Monoid s ⇒ Monoid (CI s) where
     mempty = CI mempty mempty
@@ -97,29 +102,30 @@ instance Eq s ⇒ Eq (CI s) where
 instance Ord s ⇒ Ord (CI s) where
     compare = compare `on` lowerCased
 
-instance (Read s, ToLower s) ⇒ Read (CI s) where
-    readPrec = fmap ci readPrec
+instance (Read s, FoldCase s) ⇒ Read (CI s) where
+    readPrec = fmap mk readPrec
 
 instance Show s ⇒ Show (CI s) where
     showsPrec prec = showsPrec prec ∘ original
 
 
 --------------------------------------------------------------------------------
--- Lowering case
+-- Folding (lowering) cases
 --------------------------------------------------------------------------------
 
--- | Class of string-like types that support lowering cases.
-class ToLower s where toLower ∷ s → s
+-- | Class of string-like types that support folding cases.
+--
+-- For 'Char' this means 'toLower' and for 'T.Text' this means 'T.toCaseFold'.
+class FoldCase s where foldCase ∷ s → s
 
-instance ToLower Char            where toLower = Char.toLower
-instance ToLower Word8           where toLower = c2w ∘ toLower ∘ w2c
-instance ToLower s ⇒ ToLower [s] where toLower = map toLower
-instance ToLower B.ByteString    where toLower = B.map toLower
-instance ToLower BL.ByteString   where toLower = BL.map toLower
-instance ToLower T.Text          where toLower = T.toLower
-instance ToLower TL.Text         where toLower = TL.toLower
-instance ToLower ShowS           where toLower = (toLower ∘)
-instance ToLower (CI s)          where toLower (CI _ l) = CI l l
+instance FoldCase Char             where foldCase = toLower
+instance FoldCase s ⇒ FoldCase [s] where foldCase = L.map foldCase
+instance FoldCase B.ByteString     where foldCase = C8.map toLower
+instance FoldCase BL.ByteString    where foldCase = BLC8.map toLower
+instance FoldCase T.Text           where foldCase = T.toCaseFold
+instance FoldCase TL.Text          where foldCase = TL.toCaseFold
+instance FoldCase ShowS            where foldCase = (foldCase ∘)
+instance FoldCase (CI s)           where foldCase (CI _ l) = CI l l
 
 
 -- The End ---------------------------------------------------------------------
