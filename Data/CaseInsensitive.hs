@@ -118,7 +118,14 @@ instance Show s ⇒ Show (CI s) where
 
 -- | Class of string-like types that support folding cases.
 --
--- For 'Char' this means 'toLower' and for 'T.Text' this means 'T.toCaseFold'.
+-- Note that the instances for 'Char', 'String', 'ShowS' and the 'B.ByteString'
+-- types do /not/ perform fully correct Unicode-aware case folding, they simply
+-- 'toLower' their characters! This is of course more than suitable for ASCII
+-- encoded strings.
+--
+-- The instances for the 'T.Text' types use 'T.toCaseFold' which performs a
+-- better Unicode-aware case fold which is more suitable for case insensitive
+-- string comparisons.
 class FoldCase s where foldCase ∷ s → s
 
 instance FoldCase Char          where foldCase = toLower
