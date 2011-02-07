@@ -41,6 +41,7 @@ import Data.Monoid   ( Monoid(mempty, mappend) )
 import Data.String   ( IsString(fromString) )
 import Data.Typeable ( Typeable )
 import Data.Char     ( Char )
+import Prelude       ( String )
 import Text.Read     ( Read(readPrec) )
 import Text.Show     ( Show(showsPrec), ShowS )
 import qualified Data.List as L ( map )
@@ -118,14 +119,14 @@ instance Show s ⇒ Show (CI s) where
 -- For 'Char' this means 'toLower' and for 'T.Text' this means 'T.toCaseFold'.
 class FoldCase s where foldCase ∷ s → s
 
-instance FoldCase Char             where foldCase = toLower
-instance FoldCase s ⇒ FoldCase [s] where foldCase = L.map foldCase
-instance FoldCase B.ByteString     where foldCase = C8.map toLower
-instance FoldCase BL.ByteString    where foldCase = BLC8.map toLower
-instance FoldCase T.Text           where foldCase = T.toCaseFold
-instance FoldCase TL.Text          where foldCase = TL.toCaseFold
-instance FoldCase ShowS            where foldCase = (foldCase ∘)
-instance FoldCase (CI s)           where foldCase (CI _ l) = CI l l
+instance FoldCase Char          where foldCase = toLower
+instance FoldCase String        where foldCase = L.map toLower
+instance FoldCase B.ByteString  where foldCase = C8.map toLower
+instance FoldCase BL.ByteString where foldCase = BLC8.map toLower
+instance FoldCase T.Text        where foldCase = T.toCaseFold
+instance FoldCase TL.Text       where foldCase = TL.toCaseFold
+instance FoldCase ShowS         where foldCase = (foldCase ∘)
+instance FoldCase (CI s)        where foldCase (CI _ l) = CI l l
 
 
 -- The End ---------------------------------------------------------------------
