@@ -23,6 +23,7 @@
 module Data.CaseInsensitive ( CI
                             , mk
                             , original
+                            , foldedCase
                             , map
                             , FoldCase(foldCase)
                             ) where
@@ -78,7 +79,8 @@ True
 
 -}
 data CI s = CI { original   ∷ !s -- ^ Retrieve the original string-like value.
-               , lowerCased ∷ !s
+               , foldedCase ∷ !s -- ^ Retrieve the case folded string-like value.
+                                 --   (Also see 'foldCase').
                }
           deriving Typeable
 
@@ -98,10 +100,10 @@ instance Monoid s ⇒ Monoid (CI s) where
     CI o1 l1 `mappend` CI o2 l2 = CI (o1 `mappend` o2) (l1 `mappend` l2)
 
 instance Eq s ⇒ Eq (CI s) where
-    (==) = (==) `on` lowerCased
+    (==) = (==) `on` foldedCase
 
 instance Ord s ⇒ Ord (CI s) where
-    compare = compare `on` lowerCased
+    compare = compare `on` foldedCase
 
 instance (Read s, FoldCase s) ⇒ Read (CI s) where
     readPrec = fmap mk readPrec
