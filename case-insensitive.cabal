@@ -1,5 +1,5 @@
 name:          case-insensitive
-version:       0.2
+version:       0.2.0.1
 cabal-version: >=1.6
 build-type:    Simple
 license:       BSD3
@@ -21,8 +21,7 @@ source-repository head
 
 Library
   GHC-Options: -Wall
-  build-depends: base                 >= 4     && < 4.4
-               , base-unicode-symbols >= 0.1.1 && < 0.3
-               , bytestring           >= 0.9   && < 0.10
-               , text                 >= 0.3   && < 0.12
+  build-depends: base       >= 4   && < 4.4
+               , bytestring >= 0.9 && < 0.10
+               , text       >= 0.3 && < 0.12
   exposed-modules: Data.CaseInsensitive

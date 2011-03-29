@@ -42,13 +42,10 @@ import Data.Monoid   ( Monoid(mempty, mappend) )
 import Data.String   ( IsString(fromString) )
 import Data.Typeable ( Typeable )
 import Data.Char     ( Char )
-import Prelude       ( String )
+import Prelude       ( String, (.) )
 import Text.Read     ( Read(readPrec) )
 import Text.Show     ( Show(showsPrec), ShowS )
 import qualified Data.List as L ( map )
-
--- from base-unicode-symbols:
-import Data.Function.Unicode ( (∘) )
 
 -- from bytestring:
 import qualified Data.ByteString             as B    ( ByteString )
@@ -90,10 +87,10 @@ mk s = CI s (foldCase s)
 
 -- | Transform the original string-like value but keep it case insensitive.
 map ∷ FoldCase s2 ⇒ (s1 → s2) → (CI s1 → CI s2)
-map f = mk ∘ f ∘ original
+map f = mk . f . original
 
 instance (IsString s, FoldCase s) ⇒ IsString (CI s) where
-    fromString = mk ∘ fromString
+    fromString = mk . fromString
 
 instance Monoid s ⇒ Monoid (CI s) where
     mempty = CI mempty mempty
@@ -109,7 +106,7 @@ instance (Read s, FoldCase s) ⇒ Read (CI s) where
     readPrec = fmap mk readPrec
 
 instance Show s ⇒ Show (CI s) where
-    showsPrec prec = showsPrec prec ∘ original
+    showsPrec prec = showsPrec prec . original
 
 
 --------------------------------------------------------------------------------
@@ -134,7 +131,7 @@ instance FoldCase B.ByteString  where foldCase = C8.map toLower
 instance FoldCase BL.ByteString where foldCase = BLC8.map toLower
 instance FoldCase T.Text        where foldCase = T.toCaseFold
 instance FoldCase TL.Text       where foldCase = TL.toCaseFold
-instance FoldCase ShowS         where foldCase = (foldCase ∘)
+instance FoldCase ShowS         where foldCase = (foldCase .)
 instance FoldCase (CI s)        where foldCase (CI _ l) = CI l l
 
 
