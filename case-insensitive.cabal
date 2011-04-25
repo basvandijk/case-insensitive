@@ -16,6 +16,8 @@ description:   The module @Data.CaseInsensitive@ provides the 'CI' type
                etc.. Comparisons of values of the resulting type will be
                insensitive to cases.
 
+extra-source-files: README.markdown
+
 source-repository head
   Type:     git
   Location: git://github.com/basvandijk/case-insensitive.git
