@@ -7,6 +7,7 @@ license-file:  LICENSE
 copyright:     2011 Bas van Dijk
 author:        Bas van Dijk
 maintainer:    Bas van Dijk <v.dijk.bas@gmail.com>
+bug-reports:   https://github.com/basvandijk/case-insensitive/issues
 category:      Data, Text
 synopsis:      Case insensitive string comparison
 description:   The module @Data.CaseInsensitive@ provides the 'CI' type
