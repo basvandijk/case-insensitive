@@ -14,8 +14,8 @@
 -- This module is intended to be imported qualified. May I suggest:
 --
 -- @
--- import          Data.CaseInsensitive   ( CI )
--- import qualifed Data.CaseInsensitivee as CI
+-- import           Data.CaseInsensitive  ( CI )
+-- import qualified Data.CaseInsensitive as CI
 -- @
 --
 -----------------------------------------------------------------------------
