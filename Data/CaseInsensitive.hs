@@ -2,6 +2,7 @@
            , UnicodeSyntax
            , TypeSynonymInstances
            , DeriveDataTypeable
+           , FlexibleInstances
   #-}
 
 -----------------------------------------------------------------------------
