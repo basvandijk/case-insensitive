@@ -1,5 +1,5 @@
 name:          case-insensitive
-version:       0.2.0.2
+version:       0.3
 cabal-version: >=1.6
 build-type:    Simple
 license:       BSD3
@@ -27,4 +27,5 @@ Library
   build-depends: base       >= 3   && < 4.4
                , bytestring >= 0.9 && < 0.10
                , text       >= 0.3 && < 0.12
+               , hashable   >= 1.0 && < 1.2
   exposed-modules: Data.CaseInsensitive

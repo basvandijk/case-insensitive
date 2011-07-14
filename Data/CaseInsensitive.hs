@@ -57,6 +57,8 @@ import qualified Data.ByteString.Lazy.Char8  as BLC8 ( map )
 import qualified Data.Text      as T  ( Text, toCaseFold )
 import qualified Data.Text.Lazy as TL ( Text, toCaseFold )
 
+-- from hashable:
+import Data.Hashable ( Hashable(hash) )
 
 --------------------------------------------------------------------------------
 -- Case Insensitive Strings
@@ -107,6 +109,9 @@ instance (Read s, FoldCase s) ⇒ Read (CI s) where
 
 instance Show s ⇒ Show (CI s) where
     showsPrec prec = showsPrec prec . original
+
+instance Hashable s => Hashable (CI s) where
+  hash = hash . foldedCase
 
 
 --------------------------------------------------------------------------------
