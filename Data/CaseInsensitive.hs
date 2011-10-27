@@ -41,11 +41,9 @@ import Data.Function ( on )
 import Data.Monoid   ( Monoid(mempty, mappend) )
 import Data.String   ( IsString(fromString) )
 import Data.Typeable ( Typeable )
-import Data.Char     ( Char )
 import Prelude       ( String, (.), fmap )
 import Text.Read     ( Read(readPrec) )
 import Text.Show     ( Show(showsPrec), ShowS )
-import qualified Data.List as L ( map )
 
 -- from bytestring:
 import qualified Data.ByteString             as B    ( ByteString )
@@ -55,7 +53,7 @@ import qualified Data.ByteString.Lazy.Char8  as BLC8 ( map )
 
 -- from text:
 import qualified Data.Text      as T  ( Text, toCaseFold )
-import qualified Data.Text.Lazy as TL ( Text, toCaseFold )
+import qualified Data.Text.Lazy as TL ( Text, toCaseFold, pack, unpack )
 
 -- from hashable:
 import Data.Hashable ( Hashable(hash) )
@@ -120,24 +118,21 @@ instance Hashable s => Hashable (CI s) where
 
 -- | Class of string-like types that support folding cases.
 --
--- Note that the instances for 'Char', 'String', 'ShowS' and the 'B.ByteString'
--- types do /not/ perform fully correct Unicode-aware case folding, they simply
--- 'toLower' their characters! This is of course more than suitable for ASCII
--- encoded strings.
---
--- The instances for the 'T.Text' types use 'T.toCaseFold' which performs a
--- better Unicode-aware case fold which is more suitable for case insensitive
--- string comparisons.
+-- /Note/: In some languages, case conversion is a locale- and context-dependent
+-- operation. The @foldCase@ method is /not/ intended to be locale sensitive.
+-- Programs that require locale sensitivity should use appropriate versions of
+-- the case mapping functions from the @text-icu@ package:
+-- <http://hackage.haskell.org/package/text-icu>
 class FoldCase s where foldCase ∷ s → s
 
-instance FoldCase Char          where foldCase = toLower
-instance FoldCase String        where foldCase = L.map toLower
-instance FoldCase B.ByteString  where foldCase = C8.map toLower
+-- | Note that @foldCase = 'C8.map' 'toLower'@ which is only correct for ASCII encoded strings!
+instance FoldCase B.ByteString where foldCase = C8.map toLower
+
+-- | Note that @foldCase = 'BLC8.map' 'toLower'@ which is only correct for ASCII encoded strings!
 instance FoldCase BL.ByteString where foldCase = BLC8.map toLower
-instance FoldCase T.Text        where foldCase = T.toCaseFold
-instance FoldCase TL.Text       where foldCase = TL.toCaseFold
-instance FoldCase ShowS         where foldCase = (foldCase .)
-instance FoldCase (CI s)        where foldCase (CI _ l) = CI l l
 
-
--- The End ---------------------------------------------------------------------
+instance FoldCase String  where foldCase = TL.unpack . TL.toCaseFold . TL.pack
+instance FoldCase T.Text  where foldCase = T.toCaseFold
+instance FoldCase TL.Text where foldCase = TL.toCaseFold
+instance FoldCase ShowS   where foldCase = (foldCase .)
+instance FoldCase (CI s)  where foldCase (CI _ l) = CI l l

@@ -1,5 +1,5 @@
 name:          case-insensitive
-version:       0.3.0.1
+version:       0.4
 cabal-version: >=1.6
 build-type:    Simple
 license:       BSD3
@@ -7,6 +7,7 @@ license-file:  LICENSE
 copyright:     2011 Bas van Dijk
 author:        Bas van Dijk
 maintainer:    Bas van Dijk <v.dijk.bas@gmail.com>
+homepage:      https://github.com/basvandijk/case-insensitive
 bug-reports:   https://github.com/basvandijk/case-insensitive/issues
 category:      Data, Text
 synopsis:      Case insensitive string comparison
