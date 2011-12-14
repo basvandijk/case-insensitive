@@ -35,15 +35,15 @@ module Data.CaseInsensitive ( CI
 
 -- from base:
 import Data.Char     ( toLower )
-import Data.Eq       ( Eq((==)) )
-import Data.Ord      ( Ord(compare) )
+import Data.Eq       ( Eq, (==) )
+import Data.Ord      ( Ord, compare )
 import Data.Function ( on )
-import Data.Monoid   ( Monoid(mempty, mappend) )
-import Data.String   ( IsString(fromString) )
+import Data.Monoid   ( Monoid, mempty, mappend )
+import Data.String   ( IsString, fromString )
 import Data.Typeable ( Typeable )
 import Prelude       ( String, (.), fmap )
-import Text.Read     ( Read(readPrec) )
-import Text.Show     ( Show(showsPrec), ShowS )
+import Text.Read     ( Read, readPrec )
+import Text.Show     ( Show, showsPrec, ShowS )
 
 -- from bytestring:
 import qualified Data.ByteString             as B    ( ByteString )
