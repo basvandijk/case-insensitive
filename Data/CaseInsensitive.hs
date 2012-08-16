@@ -1,9 +1,14 @@
-{-# LANGUAGE NoImplicitPrelude
+{-# LANGUAGE CPP
+           , NoImplicitPrelude
            , UnicodeSyntax
            , TypeSynonymInstances
            , DeriveDataTypeable
            , FlexibleInstances
   #-}
+
+#if __GLASGOW_HASKELL__ >= 702
+{-# LANGUAGE Trustworthy #-}
+#endif
 
 -----------------------------------------------------------------------------
 -- |
