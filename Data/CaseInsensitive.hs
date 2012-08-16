@@ -125,10 +125,10 @@ instance Hashable s => Hashable (CI s) where
 -- <http://hackage.haskell.org/package/text-icu>
 class FoldCase s where foldCase ∷ s → s
 
--- | Note that @foldCase = 'C8.map' 'toLower'@ which is only correct for ASCII encoded strings!
+-- | Note that @foldCase = 'C8.map' 'toLower'@ which is only guaranteed to be correct for ASCII encoded strings!
 instance FoldCase B.ByteString where foldCase = C8.map toLower
 
--- | Note that @foldCase = 'BLC8.map' 'toLower'@ which is only correct for ASCII encoded strings!
+-- | Note that @foldCase = 'BLC8.map' 'toLower'@ which is only guaranteed to be correct for ASCII encoded strings!
 instance FoldCase BL.ByteString where foldCase = BLC8.map toLower
 
 instance FoldCase String  where foldCase = TL.unpack . TL.toCaseFold . TL.pack
