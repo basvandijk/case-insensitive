@@ -39,6 +39,7 @@ module Data.CaseInsensitive ( CI
 --------------------------------------------------------------------------------
 
 -- from base:
+import Data.Bool     ( (||) )
 import Data.Eq       ( Eq, (==) )
 import Data.Ord      ( Ord, compare )
 import Data.Function ( on )
@@ -142,5 +143,7 @@ instance FoldCase (CI s)  where foldCase (CI _ l) = CI l l
 
 toLower :: Word8 -> Word8
 toLower w
-  | 65 <= w && w <= 90 = w + 32
-  | otherwise          = w
+  |  65 <= w && w <=  90 ||
+    192 <= w && w <= 214 ||
+    216 <= w && w <= 222 = w + 32
+  | otherwise            = w
