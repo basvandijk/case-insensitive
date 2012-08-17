@@ -39,22 +39,20 @@ module Data.CaseInsensitive ( CI
 --------------------------------------------------------------------------------
 
 -- from base:
-import Data.Char     ( toLower )
 import Data.Eq       ( Eq, (==) )
 import Data.Ord      ( Ord, compare )
 import Data.Function ( on )
 import Data.Monoid   ( Monoid, mempty, mappend )
 import Data.String   ( IsString, fromString )
 import Data.Typeable ( Typeable )
-import Prelude       ( String, (.), fmap )
+import Data.Word     ( Word8 )
+import Prelude       ( String, (.), fmap, (&&), (+), (<=), (>=), otherwise )
 import Text.Read     ( Read, readPrec )
 import Text.Show     ( Show, showsPrec, ShowS )
 
 -- from bytestring:
-import qualified Data.ByteString             as B    ( ByteString )
-import qualified Data.ByteString.Lazy        as BL   ( ByteString )
-import qualified Data.ByteString.Char8       as C8   ( map )
-import qualified Data.ByteString.Lazy.Char8  as BLC8 ( map )
+import qualified Data.ByteString             as B    ( ByteString, map )
+import qualified Data.ByteString.Lazy        as BL   ( ByteString, map )
 
 -- from text:
 import qualified Data.Text      as T  ( Text, toCaseFold )
@@ -130,14 +128,19 @@ instance Hashable s => Hashable (CI s) where
 -- <http://hackage.haskell.org/package/text-icu>
 class FoldCase s where foldCase ∷ s → s
 
--- | Note that @foldCase = 'C8.map' 'toLower'@ which is only guaranteed to be correct for ASCII encoded strings!
-instance FoldCase B.ByteString where foldCase = C8.map toLower
+-- | Note that @foldCase = 'B.map' toLower@ which is only guaranteed to be correct for ASCII encoded strings!
+instance FoldCase B.ByteString where foldCase = B.map toLower
 
--- | Note that @foldCase = 'BLC8.map' 'toLower'@ which is only guaranteed to be correct for ASCII encoded strings!
-instance FoldCase BL.ByteString where foldCase = BLC8.map toLower
+-- | Note that @foldCase = 'BL.map' toLower@ which is only guaranteed to be correct for ASCII encoded strings!
+instance FoldCase BL.ByteString where foldCase = BL.map toLower
 
 instance FoldCase String  where foldCase = TL.unpack . TL.toCaseFold . TL.pack
 instance FoldCase T.Text  where foldCase = T.toCaseFold
 instance FoldCase TL.Text where foldCase = TL.toCaseFold
 instance FoldCase ShowS   where foldCase = (foldCase .)
 instance FoldCase (CI s)  where foldCase (CI _ l) = CI l l
+
+toLower :: Word8 -> Word8
+toLower w
+  | 65 <= w && w <= 90 = w + 32
+  | otherwise          = w
