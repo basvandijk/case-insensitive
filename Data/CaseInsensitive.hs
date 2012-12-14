@@ -60,7 +60,7 @@ import qualified Data.Text      as T  ( Text, toCaseFold )
 import qualified Data.Text.Lazy as TL ( Text, toCaseFold, pack, unpack )
 
 -- from hashable:
-import Data.Hashable ( Hashable(hash) )
+import Data.Hashable ( Hashable, hashWithSalt )
 
 --------------------------------------------------------------------------------
 -- Case Insensitive Strings
@@ -113,7 +113,7 @@ instance Show s ⇒ Show (CI s) where
     showsPrec prec = showsPrec prec . original
 
 instance Hashable s => Hashable (CI s) where
-  hash = hash . foldedCase
+  hashWithSalt salt = hashWithSalt salt . foldedCase
 
 
 --------------------------------------------------------------------------------
