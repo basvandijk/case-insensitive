@@ -52,15 +52,15 @@ import Text.Show     ( Show, showsPrec )
 import qualified Data.List as L ( map )
 
 -- from bytestring:
-import qualified Data.ByteString             as B    ( ByteString, map )
-import qualified Data.ByteString.Lazy        as BL   ( ByteString, map )
+import qualified Data.ByteString      as B  ( ByteString, map )
+import qualified Data.ByteString.Lazy as BL ( ByteString, map )
 
 -- from text:
 import qualified Data.Text      as T  ( Text, toCaseFold )
 import qualified Data.Text.Lazy as TL ( Text, toCaseFold, pack, unpack )
 
 -- from hashable:
-import           Data.Hashable ( Hashable, hashWithSalt )
+import Data.Hashable ( Hashable, hashWithSalt )
 
 --------------------------------------------------------------------------------
 -- Case Insensitive Strings
@@ -113,7 +113,7 @@ instance Show s => Show (CI s) where
     showsPrec prec = showsPrec prec . original
 
 instance Hashable s => Hashable (CI s) where
-  hashWithSalt salt = hashWithSalt salt . foldedCase
+    hashWithSalt salt = hashWithSalt salt . foldedCase
 
 
 --------------------------------------------------------------------------------
