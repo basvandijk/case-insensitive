@@ -19,7 +19,7 @@
 -- @
 --
 -- /Note that the FoldCase instance for ByteStrings is only/
--- /guaranteed to be correct for ASCII encoded strings!/
+-- /guaranteed to be correct for ISO-8859-1 encoded strings!/
 --
 -----------------------------------------------------------------------------
 
@@ -136,10 +136,10 @@ class FoldCase s where
 instance FoldCase a => FoldCase [a] where
     foldCase = foldCaseList
 
--- | Note that @foldCase@ on @'B.ByteString's@ is only guaranteed to be correct for ASCII encoded strings!
+-- | Note that @foldCase@ on @'B.ByteString's@ is only guaranteed to be correct for ISO-8859-1 encoded strings!
 instance FoldCase B.ByteString where foldCase = B.map toLower8
 
--- | Note that @foldCase@ on @'BL.ByteString's@ is only guaranteed to be correct for ASCII encoded strings!
+-- | Note that @foldCase@ on @'BL.ByteString's@ is only guaranteed to be correct for ISO-8859-1 encoded strings!
 instance FoldCase BL.ByteString where foldCase = BL.map toLower8
 
 instance FoldCase Char where
