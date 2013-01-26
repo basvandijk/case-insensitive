@@ -3,16 +3,18 @@
 
 module Main ( main) where
 
-import           Criterion.Main (defaultMain, bcompare, bench, nf )
-import           Control.DeepSeq ( NFData, rnf, deepseq )
-import           Data.ByteString ( ByteString )
-import qualified Data.ByteString as B
-import qualified Data.CaseInsensitive as CI
-import           Data.Word ( Word8 )
+import           Criterion.Main             ( defaultMain, bcompare, bench, nf )
+import           Control.DeepSeq            ( NFData, rnf, deepseq )
+import           Data.ByteString            ( ByteString )
+import qualified Data.ByteString      as B  ( map, readFile )
+import qualified Data.CaseInsensitive as CI ( mk )
+import           Data.Word                  ( Word8 )
 
 #if !MIN_VERSION_bytestring(0,10,0)
 instance NFData ByteString
 #endif
+
+--------------------------------------------------------------------------------
 
 main :: IO ()
 main = do
