@@ -59,6 +59,9 @@ import qualified Data.ByteString.Lazy as BL ( ByteString, map )
 import qualified Data.Text      as T  ( Text, toCaseFold )
 import qualified Data.Text.Lazy as TL ( Text, toCaseFold, pack, unpack )
 
+-- from deepseq:
+import Control.DeepSeq ( NFData, rnf, deepseq )
+
 -- from hashable:
 import Data.Hashable ( Hashable, hashWithSalt )
 
@@ -115,6 +118,8 @@ instance Show s => Show (CI s) where
 instance Hashable s => Hashable (CI s) where
     hashWithSalt salt = hashWithSalt salt . foldedCase
 
+instance NFData s => NFData (CI s) where
+    rnf (CI o f) = o `deepseq` f `deepseq` ()
 
 --------------------------------------------------------------------------------
 -- Folding (lowering) cases
