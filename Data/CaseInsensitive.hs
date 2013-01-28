@@ -92,6 +92,20 @@ data CI s = CI { original   :: !s -- ^ Retrieve the original string-like value.
 mk :: FoldCase s => s -> CI s
 mk s = CI s (foldCase s)
 
+{-# RULES
+  "mk/ByteString" forall (bs :: B.ByteString). mk bs = CI bs (foldCaseBS bs)
+  #-}
+
+foldCaseBS :: B.ByteString -> B.ByteString
+foldCaseBS bs = B.map toLower8' bs
+    where
+      toLower8' :: Word8 -> Word8
+      toLower8' w
+          |  65  <= w && w <=  90 ||
+             192 <= w && w <= 214 ||
+             216 <= w && w <= 222 = w + 32
+          | otherwise             = w
+
 -- | Transform the original string-like value but keep it case insensitive.
 map :: FoldCase s2 => (s1 -> s2) -> (CI s1 -> CI s2)
 map f = mk . f . original
