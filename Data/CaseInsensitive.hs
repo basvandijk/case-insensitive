@@ -51,6 +51,11 @@ import Text.Show     ( Show, showsPrec )
 
 import qualified Data.List as L ( map )
 
+#if __GLASGOW_HASKELL__ < 700
+import Control.Monad ( (>>) )
+import Prelude       ( fromInteger )
+#endif
+
 -- from bytestring:
 import qualified Data.ByteString      as B  ( ByteString, map )
 import qualified Data.ByteString.Lazy as BL ( ByteString, map )
