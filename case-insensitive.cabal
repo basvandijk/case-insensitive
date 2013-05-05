@@ -1,5 +1,5 @@
 name:          case-insensitive
-version:       1.0.0.1
+version:       1.0.0.2
 cabal-version: >=1.8
 build-type:    Simple
 license:       BSD3
@@ -57,5 +57,5 @@ benchmark bench-case-insensitive
   build-depends: case-insensitive
                , base                 >= 3     && < 4.8
                , bytestring           >= 0.9   && < 0.11
-               , criterion            >= 0.6.1 && < 0.7
+               , criterion            >= 0.6.1 && < 0.9
                , deepseq              >= 1.1   && < 1.4
