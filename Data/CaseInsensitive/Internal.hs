@@ -175,9 +175,7 @@ toLower8 w
 -- Rewrite RULES
 --------------------------------------------------------------------------------
 
-{-# RULES
-  "mk/ByteString" forall (bs :: B.ByteString). mk bs = CI bs (foldCaseBS bs)
-  #-}
+{-# RULES "mk/ByteString" forall (bs :: B.ByteString). mk bs = CI bs (foldCaseBS bs) #-}
 
 foldCaseBS :: B.ByteString -> B.ByteString
 foldCaseBS bs = B.map toLower8' bs
