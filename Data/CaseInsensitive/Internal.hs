@@ -37,6 +37,7 @@ import Data.Function ( on )
 import Data.Monoid   ( Monoid, mempty, mappend )
 import Data.Ord      ( Ord, compare )
 import Data.String   ( IsString, fromString )
+import Data.Data     ( Data )
 import Data.Typeable ( Typeable )
 import Data.Word     ( Word8 )
 import Prelude       ( String, (.), fmap, (&&), (+), (<=), (>=), otherwise )
@@ -86,7 +87,7 @@ data CI s = CI { original   :: !s -- ^ Retrieve the original string-like value.
                , foldedCase :: !s -- ^ Retrieve the case folded string-like value.
                                   --   (Also see 'foldCase').
                }
-          deriving Typeable
+          deriving (Data, Typeable)
 
 -- | Make the given string-like value case insensitive.
 mk :: FoldCase s => s -> CI s
