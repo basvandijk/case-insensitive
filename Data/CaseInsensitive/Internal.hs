@@ -40,7 +40,7 @@ import Data.String   ( IsString, fromString )
 import Data.Data     ( Data )
 import Data.Typeable ( Typeable )
 import Data.Word     ( Word8 )
-import Prelude       ( String, (.), fmap, (&&), (+), (<=), (>=), otherwise )
+import Prelude       ( (.), fmap, (&&), (+), (<=), otherwise )
 import Text.Read     ( Read, readPrec )
 import Text.Show     ( Show, showsPrec )
 
@@ -165,6 +165,7 @@ instance FoldCase T.Text  where foldCase = T.toCaseFold
 instance FoldCase TL.Text where foldCase = TL.toCaseFold
 instance FoldCase (CI s)  where foldCase (CI _ l) = CI l l
 
+{-# INLINE toLower8 #-}
 toLower8 :: Word8 -> Word8
 toLower8 w
   |  65 <= w && w <=  90 ||
@@ -176,7 +177,7 @@ toLower8 w
 -- Rewrite RULES
 --------------------------------------------------------------------------------
 
-{-# RULES "mk/ByteString" forall (bs :: B.ByteString). mk bs = CI bs (foldCaseBS bs) #-}
+{-# RULES "foldCase/ByteString" foldCase = foldCaseBS #-}
 
 foldCaseBS :: B.ByteString -> B.ByteString
 foldCaseBS bs = B.map toLower8' bs

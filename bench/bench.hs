@@ -3,7 +3,7 @@
 
 module Main ( main) where
 
-import           Criterion.Main             ( defaultMain, bcompare, bench, nf )
+import           Criterion.Main             ( defaultMain, bench, nf )
 import qualified Data.ByteString      as B  ( readFile )
 import qualified Data.CaseInsensitive as CI ( mk )
 import qualified NoClass              as NC ( mk )
@@ -17,8 +17,6 @@ main :: IO ()
 main = do
   bs <- B.readFile "data/pg2189.txt"
   defaultMain
-    [ bcompare
-      [ bench "no-class"         $ nf (\s -> NC.mk s) bs
-      , bench "case-insensitive" $ nf (\s -> CI.mk s) bs
-      ]
+    [ bench "no-class"         $ nf (\s -> NC.mk s) bs
+    , bench "case-insensitive" $ nf (\s -> CI.mk s) bs
     ]
