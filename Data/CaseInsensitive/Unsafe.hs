@@ -1,6 +1,6 @@
 {-# LANGUAGE CPP, NoImplicitPrelude #-}
 
-#if __GLASGOW_HASKELL__ >= 702
+#if __GLASGOW_HASKELL__ >= 704
 {-# LANGUAGE Unsafe #-}
 #endif
 
