@@ -1,5 +1,5 @@
 name:          case-insensitive
-version:       1.2.0.2
+version:       1.2.0.3
 cabal-version: >=1.8
 build-type:    Simple
 license:       BSD3
@@ -17,7 +17,7 @@ description:   The module @Data.CaseInsensitive@ provides the 'CI' type
                etc.. Comparisons of values of the resulting type will be
                insensitive to cases.
 
-extra-source-files: README.markdown
+extra-source-files: README.markdown CHANGELOG
 
 source-repository head
   Type:     git

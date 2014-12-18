@@ -1,3 +1,8 @@
+1.2.0.3
+
+* Add CHANGELOG to extra-source files so that it shows up on Hackage
+
+
 1.2.0.2
 
 * Bump base and deepseq upper bounds for GHC 7.10 compatibility
