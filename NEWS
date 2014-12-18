@@ -1,3 +1,62 @@
+1.2.0.2
+
+* Bump base and deepseq upper bounds for GHC 7.10 compatibility
+
+* Add case-insensitive.nix and default.nix
+
+* Fix #14: Build failure with GHC 7.2.2
+
+* Fix #8: Don't unnecessarily use NoImplicitPrelude
+
+
+1.2.0.1
+
+* Solved warnings on GHC-7.8.3
+
+* Bump text upper version bounds
+
+
+1.2.0.0
+
+* Derived a Data instance for CI
+
+
+1.1.0.3
+
+* Support text-1.1
+
+
+1.1.0.2
+
+* Support text-1.0
+
+
+1.1.0.1
+
+* Fixed bad character L178
+
+
+1.1
+
+* Added the Data.CaseInsensitive.Unsafe module
+
+* Mark Data.CaseInsensitive.Internal as Unsafe
+
+
+1.0.0.2
+
+*  Support criterion-0.8
+
+
+1.0.0.1
+
+* Fix building on GHC-6.12.1
+
+* Bump base upper bound for GHC 7.7
+
+* Added a NEWS file
+
+
 1.0  @  Mon Jan 28 14:39:05 UTC 2013
 
 * Make package ready for the Haskell Platform
