@@ -15,7 +15,7 @@ instance NFData ByteString
 
 main :: IO ()
 main = do
-  bs <- B.readFile "data/pg2189.txt"
+  bs <- B.readFile "pg2189.txt"
   defaultMain
     [ bench "no-class"         $ nf (\s -> NC.mk s) bs
     , bench "case-insensitive" $ nf (\s -> CI.mk s) bs

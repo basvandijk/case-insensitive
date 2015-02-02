@@ -4,7 +4,7 @@
 
 cabal.mkDerivation (self: {
   pname = "case-insensitive";
-  version = "1.2.0.1";
+  version = "HEAD";
   src = ./.;
   buildDepends = [ deepseq hashable text ];
   testDepends = [ HUnit testFramework testFrameworkHunit text ];
