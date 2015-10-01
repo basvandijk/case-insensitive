@@ -1,18 +1,15 @@
-let
-  pkgs = import <nixpkgs> {};
-  haskellPackages = pkgs.haskellPackages.override {
-    extension = self: super: {
-      caseInsensitive = self.callPackage ./case-insensitive.nix {};
-    };
-  };
+{ nixpkgs ? import <nixpkgs> {}, compiler ? "default" }:
 
-in pkgs.myEnvFun {
-     name = haskellPackages.caseInsensitive.name;
-     buildInputs = [
-       (haskellPackages.ghcWithPackages (hs: ([
-         hs.cabalInstall
-         hs.criterion
-       ] ++ hs.caseInsensitive.propagatedNativeBuildInputs
-         ++ hs.caseInsensitive.nativeBuildInputs)))
-     ];
-   }
+let
+
+  inherit (nixpkgs) pkgs;
+
+  haskellPackages = if compiler == "default"
+                      then pkgs.haskellPackages
+                      else pkgs.haskell.packages.${compiler};
+
+  drv = haskellPackages.callPackage (import ./case-insensitive.nix) {};
+
+in
+
+  if pkgs.lib.inNixShell then drv.env else drv

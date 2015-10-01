@@ -1,17 +1,19 @@
-{ cabal, deepseq, hashable, HUnit, testFramework
-, testFrameworkHunit, text
-}:
+{ mkDerivation, base, bytestring, deepseq, hashable, HUnit, stdenv
+, test-framework, test-framework-hunit, text
 
-cabal.mkDerivation (self: {
+, criterion
+}:
+mkDerivation {
   pname = "case-insensitive";
   version = "HEAD";
   src = ./.;
-  buildDepends = [ deepseq hashable text ];
-  testDepends = [ HUnit testFramework testFrameworkHunit text ];
-  meta = {
-    homepage = "https://github.com/basvandijk/case-insensitive";
-    description = "Case insensitive string comparison";
-    license = self.stdenv.lib.licenses.bsd3;
-    platforms = self.ghc.meta.platforms;
-  };
-})
+  libraryHaskellDepends = [ base bytestring deepseq hashable text ];
+  testHaskellDepends = [
+    base bytestring HUnit test-framework test-framework-hunit text
+
+    criterion deepseq
+  ];
+  homepage = "https://github.com/basvandijk/case-insensitive";
+  description = "Case insensitive string comparison";
+  license = stdenv.lib.licenses.bsd3;
+}
