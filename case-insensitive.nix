@@ -1,5 +1,5 @@
 { mkDerivation, base, bytestring, deepseq, hashable, HUnit, stdenv
-, test-framework, test-framework-hunit, text
+, test-framework, test-framework-hunit, text, semigroups
 
 , criterion
 }:
@@ -9,7 +9,7 @@ mkDerivation {
   src = ./.;
   libraryHaskellDepends = [ base bytestring deepseq hashable text ];
   testHaskellDepends = [
-    base bytestring HUnit test-framework test-framework-hunit text
+    base bytestring HUnit test-framework test-framework-hunit text semigroups
 
     criterion deepseq
   ];

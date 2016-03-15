@@ -1,3 +1,9 @@
+1.2.0.6
+
+* Add Travis CI support
+* Add Semigroup s => Semigroup (CI s) instance
+
+
 1.2.0.5
 
 * Support HUnit-1.3
