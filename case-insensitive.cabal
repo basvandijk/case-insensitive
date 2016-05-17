@@ -61,6 +61,7 @@ test-suite test-case-insensitive
 benchmark bench-case-insensitive
   type:           exitcode-stdio-1.0
   main-is:        bench.hs
+  other-modules:  NoClass
   hs-source-dirs: bench
 
   ghc-options:    -Wall -O2
