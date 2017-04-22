@@ -1,5 +1,5 @@
 name:          case-insensitive
-version:       1.2.0.8
+version:       1.2.0.9
 cabal-version: >=1.8
 build-type:    Simple
 license:       BSD3
