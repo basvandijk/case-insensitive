@@ -69,5 +69,5 @@ benchmark bench-case-insensitive
   build-depends: case-insensitive
                , base                 >= 3     && < 4.11
                , bytestring           >= 0.9   && < 0.11
-               , criterion            >= 0.6.1 && < 1.3
+               , criterion            >= 0.6.1 && < 1.4
                , deepseq              >= 1.1   && < 1.5
