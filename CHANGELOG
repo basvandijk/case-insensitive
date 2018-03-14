@@ -1,3 +1,7 @@
+1.2.0.11
+
+*  Dropped upper version bounds of dependencies because it's to much work to maintain.
+
 1.2.0.10
 
 * Support criterion-1.2
