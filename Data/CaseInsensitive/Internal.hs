@@ -22,6 +22,7 @@ module Data.CaseInsensitive.Internal ( CI
                                      , original
                                      , foldedCase
                                      , map
+                                     , traverse
                                      , FoldCase(foldCase)
                                      ) where
 
@@ -30,6 +31,7 @@ module Data.CaseInsensitive.Internal ( CI
 --------------------------------------------------------------------------------
 
 -- from base:
+import Control.Applicative (Applicative)
 import Data.Bool      ( (||) )
 import Data.Char      ( Char, toLower )
 import Data.Eq        ( Eq, (==) )
@@ -106,6 +108,10 @@ unsafeMk s = CI s s
 -- | Transform the original string-like value but keep it case insensitive.
 map :: FoldCase s2 => (s1 -> s2) -> (CI s1 -> CI s2)
 map f = mk . f . original
+
+-- | Transform the original string-like value but keep it case insensitive.
+traverse :: (FoldCase s2, Applicative f) => (s1 -> f s2) -> CI s1 -> f (CI s2)
+traverse f = fmap mk . f . original
 
 instance (IsString s, FoldCase s) => IsString (CI s) where
     fromString = mk . fromString

@@ -1,3 +1,7 @@
+1.2.1.0
+
+*  Add traverse
+
 1.2.0.11
 
 *  Dropped upper version bounds of dependencies because it's to much work to maintain.

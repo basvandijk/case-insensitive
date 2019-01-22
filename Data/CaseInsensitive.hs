@@ -28,6 +28,7 @@ module Data.CaseInsensitive ( CI
                             , original
                             , foldedCase
                             , map
+                            , traverse
                             , FoldCase(foldCase)
                             ) where
 import Data.CaseInsensitive.Internal
