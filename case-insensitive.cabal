@@ -33,11 +33,12 @@ source-repository head
 
 Library
   ghc-options: -Wall
-  build-depends: base       >= 3 && < 5
-               , bytestring >= 0.9
-               , text       >= 0.3
-               , deepseq    >= 1.1
-               , hashable   >= 1.0
+  build-depends: base             >= 3 && < 5
+               , bytestring       >= 0.9
+               , text             >= 0.3
+               , deepseq          >= 1.1
+               , hashable         >= 1.0
+               , template-haskell >= 2.2
   if !impl(ghc >= 8.0)
     build-depends: semigroups >= 0.18
   exposed-modules: Data.CaseInsensitive, Data.CaseInsensitive.Unsafe
@@ -55,6 +56,7 @@ test-suite test-case-insensitive
                , HUnit                >= 1.2.2
                , test-framework       >= 0.2.4
                , test-framework-hunit >= 0.2.4
+               , template-haskell     >= 2.2
 
   ghc-options: -Wall
 

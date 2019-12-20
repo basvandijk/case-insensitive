@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP, DeriveDataTypeable #-}
+{-# LANGUAGE CPP, DeriveDataTypeable, TemplateHaskell #-}
 
 #if __GLASGOW_HASKELL__ >= 704
 {-# LANGUAGE Unsafe #-}
@@ -68,6 +68,9 @@ import Control.DeepSeq ( NFData, rnf, deepseq )
 -- from hashable:
 import Data.Hashable ( Hashable, hashWithSalt )
 
+-- from template-haskell:
+import Language.Haskell.TH        ( appE, varE )
+import Language.Haskell.TH.Syntax ( Lift(lift) )
 
 --------------------------------------------------------------------------------
 -- Case Insensitive Strings
@@ -140,6 +143,9 @@ instance Hashable s => Hashable (CI s) where
 
 instance NFData s => NFData (CI s) where
     rnf (CI o f) = o `deepseq` f `deepseq` ()
+
+instance Lift s => Lift (CI s) where
+    lift = appE (varE 'mk) . lift . original
 
 --------------------------------------------------------------------------------
 -- Folding (lowering) cases
