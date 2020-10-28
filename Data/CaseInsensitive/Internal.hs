@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP, DeriveDataTypeable #-}
+{-# LANGUAGE CPP, DeriveDataTypeable, DeriveLift #-}
 
 #if __GLASGOW_HASKELL__ >= 704
 {-# LANGUAGE Unsafe #-}
@@ -47,6 +47,8 @@ import Text.Read      ( Read, readPrec )
 import Text.Show      ( Show, showsPrec )
 import Data.Semigroup ( Semigroup, (<>) )
 
+import Language.Haskell.TH.Syntax (Lift)
+
 import qualified Data.List as L ( map )
 
 #if __GLASGOW_HASKELL__ < 700
@@ -90,7 +92,7 @@ data CI s = CI { original   :: !s -- ^ Retrieve the original string-like value.
                , foldedCase :: !s -- ^ Retrieve the case folded string-like value.
                                   --   (Also see 'foldCase').
                }
-          deriving (Data, Typeable)
+          deriving (Data, Typeable, Lift)
 
 -- | Make the given string-like value case insensitive.
 mk :: FoldCase s => s -> CI s
