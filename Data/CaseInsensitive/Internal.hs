@@ -32,6 +32,7 @@ module Data.CaseInsensitive.Internal ( CI
 
 -- from base:
 import Control.Applicative (Applicative)
+import Data.Aeson     ( FromJSON, parseJSON )
 import Data.Bool      ( (||) )
 import Data.Char      ( Char, toLower )
 import Data.Eq        ( Eq, (==) )
@@ -140,6 +141,9 @@ instance Hashable s => Hashable (CI s) where
 
 instance NFData s => NFData (CI s) where
     rnf (CI o f) = o `deepseq` f `deepseq` ()
+
+instance (FromJSON s, FoldCase s) =>  FromJSON (CI s) where
+    parseJSON = fmap mk . parseJSON
 
 --------------------------------------------------------------------------------
 -- Folding (lowering) cases

@@ -38,6 +38,7 @@ Library
                , text       >= 0.3
                , deepseq    >= 1.1
                , hashable   >= 1.0
+               , aeson      >= 1.0
   if !impl(ghc >= 8.0)
     build-depends: semigroups >= 0.18
   exposed-modules: Data.CaseInsensitive, Data.CaseInsensitive.Unsafe
