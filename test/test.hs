@@ -25,6 +25,7 @@ main = defaultMain
                                                   (CI.mk ( BC8.map toUpper  asciiBs))
     , testCase "Lazy.ByteString" $ assertEqual "" (CI.mk                    asciiLBs)
                                                   (CI.mk (BLC8.map toUpper  asciiLBs))
+    -- TODO ShortByteString ?
     , testCase "Text"            $ assertEqual "" (CI.mk                    asciiTxt)
                                                   (CI.mk (       T.toUpper  asciiTxt))
     , testCase "Lazy.Text"       $ assertEqual "" (CI.mk                    asciiLTxt)
