@@ -121,7 +121,6 @@ instance Semigroup s => Semigroup (CI s) where
 
 instance Monoid s => Monoid (CI s) where
     mempty = CI mempty mempty
-    CI o1 l1 `mappend` CI o2 l2 = CI (o1 `mappend` o2) (l1 `mappend` l2)
 
 instance Eq s => Eq (CI s) where
     (==) = (==) `on` foldedCase
