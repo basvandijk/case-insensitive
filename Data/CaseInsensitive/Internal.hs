@@ -47,11 +47,7 @@ import qualified Data.List as L ( map )
 -- from bytestring:
 import qualified Data.ByteString      as B  ( ByteString, map )
 import qualified Data.ByteString.Lazy as BL ( ByteString, map )
-import qualified Data.ByteString.Short as BS ( ShortByteString )
-#if MIN_VERSION_bytestring(0,11,3)
--- This map function is better optimized, but is included only @since 0.11.3.0
-import qualified Data.ByteString.Short as BS ( map )
-#endif
+import qualified Data.ByteString.Short as BS ( ShortByteString, map )
 
 -- from text:
 import qualified Data.Text      as T  ( Text, toCaseFold )
@@ -163,9 +159,8 @@ instance FoldCase B.ByteString where foldCase = B.map toLower8
 -- | Note that @foldCase@ on @'BL.ByteString's@ is only guaranteed to be correct for ISO-8859-1 encoded strings!
 instance FoldCase BL.ByteString where foldCase = BL.map toLower8
 
-#if MIN_VERSION_bytestring(0,11,3)
+-- | Note that @foldCase@ on @'BL.ByteString's@ is only guaranteed to be correct for ISO-8859-1 encoded strings!
 instance FoldCase BS.ShortByteString where foldCase = BS.map toLower8
-#endif
 
 instance FoldCase Char where
     foldCase     = toLower
