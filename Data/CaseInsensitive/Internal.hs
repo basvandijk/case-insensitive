@@ -1,7 +1,11 @@
-{-# LANGUAGE CPP, DeriveDataTypeable, TemplateHaskell, StandaloneDeriving, DeriveLift #-}
+{-# LANGUAGE CPP, DeriveDataTypeable, TemplateHaskell #-}
 
 #if __GLASGOW_HASKELL__ >= 704
 {-# LANGUAGE Unsafe #-}
+#endif
+
+#if __GLASGOW_HASKELL__ >= 800
+{-# LANGUAGE StandaloneDeriving, DeriveLift #-}
 #endif
 
 -----------------------------------------------------------------------------
@@ -68,8 +72,10 @@ import Control.DeepSeq ( NFData, rnf, deepseq )
 -- from hashable:
 import Data.Hashable ( Hashable, hashWithSalt )
 
+#if __GLASGOW_HASKELL__ >= 800
 -- from template-haskell:
 import Language.Haskell.TH.Syntax ( Lift )
+#endif
 
 --------------------------------------------------------------------------------
 -- Case Insensitive Strings
@@ -94,7 +100,9 @@ data CI s = CI { original   :: !s -- ^ Retrieve the original string-like value.
                }
           deriving (Data, Typeable)
 
+#if __GLASGOW_HASKELL__ >= 800
 deriving instance (Lift s) => Lift (CI s)
+#endif
 
 -- | Make the given string-like value case insensitive.
 mk :: FoldCase s => s -> CI s
