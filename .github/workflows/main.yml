@@ -10,30 +10,43 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate-matrix:
-    name: "Generate matrix from cabal"
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Extract the tested GHC versions
-        uses: kleidukos/get-tested@v0.1.10.0
-        id: set-matrix
-        with:
-          cabal-file: case-insensitive.cabal
-          ubuntu-version: "latest"
-          macos-version: "latest"
-          windows-version: "latest"
-          version: 0.1.10.0
+  # generate-matrix:
+  #   name: "Generate matrix from cabal"
+  #   outputs:
+  #     matrix: ${{ steps.set-matrix.outputs.matrix }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Extract the tested GHC versions
+  #       uses: kleidukos/get-tested@v0.1.10.0
+  #       id: set-matrix
+  #       with:
+  #         cabal-file: case-insensitive.cabal
+  #         ubuntu-version: "latest"
+  #         macos-version: "latest"
+  #         windows-version: "latest"
+  #         version: 0.1.10.0
   tests:
     name: ${{ matrix.ghc }} on ${{ matrix.os }}
-    needs: generate-matrix
+    # needs: generate-matrix
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      # TODO: surprisingly, does work with windows&ghc-7.10+, and ubuntu&ghc-8.0+
+      # TODO: restore get-tested
       # see https://github.com/basvandijk/case-insensitive/actions/runs/36260084793
-      matrix: ${{ fromJSON(needs.generate-matrix.outputs.matrix) }}
+      matrix:
+        ghc: [ "9.2", "9.4", "9.6", "9.8", "9.10", "9.12", "9.14" ]
+        os: [ "ubuntu-latest", "macos-latest", "windows-latest" ]
+        include:
+          - ghc: "7.10"
+            os: "windows-latest"
+          - ghc: "8.0"
+            os: "windows-latest"
+          - ghc: "8.10"
+            os: "windows-latest"
+          - ghc: "8.0"
+            os: "ubuntu-latest"
+          - ghc: "8.10"
+            os: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v7
 
