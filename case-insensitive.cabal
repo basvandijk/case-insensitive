@@ -17,13 +17,13 @@ description:   The module @Data.CaseInsensitive@ provides the 'CI' type
                etc.. Comparisons of values of the resulting type will be
                insensitive to cases.
 tested-with:
-  GHC==7.0.4,
-  GHC==7.2.2
-  GHC==7.4.2,
-  GHC==7.6.3,
-  GHC==7.8.4,
-  GHC==7.10.3,
-  GHC==8.0.1
+  GHC==9.2,
+  GHC==9.4,
+  GHC==9.6,
+  GHC==9.8,
+  GHC==9.10,
+  GHC==9.12,
+  GHC==9.14
 
 extra-source-files: README.markdown CHANGELOG pg2189.txt
 
