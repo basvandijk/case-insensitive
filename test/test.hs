@@ -2,6 +2,7 @@
 module Main ( main ) where
 
 import           Data.ByteString                    ( ByteString )
+import           Data.ByteString.Short              ( toShort )
 import qualified Data.ByteString.Char8      as BC8  ( pack, map )
 import qualified Data.ByteString.Lazy       as Lazy ( ByteString )
 import qualified Data.ByteString.Lazy.Char8 as BLC8 ( pack, map )
@@ -25,7 +26,8 @@ main = defaultMain
                                                   (CI.mk ( BC8.map toUpper  asciiBs))
     , testCase "Lazy.ByteString" $ assertEqual "" (CI.mk                    asciiLBs)
                                                   (CI.mk (BLC8.map toUpper  asciiLBs))
-    -- TODO ShortByteString ?
+    , testCase "ShortByteString" $ assertEqual "" (CI.mk           (toShort asciiBs))
+                                                  (CI.mk (toShort (BC8.map toUpper asciiBs)))
     , testCase "Text"            $ assertEqual "" (CI.mk                    asciiTxt)
                                                   (CI.mk (       T.toUpper  asciiTxt))
     , testCase "Lazy.Text"       $ assertEqual "" (CI.mk                    asciiLTxt)
