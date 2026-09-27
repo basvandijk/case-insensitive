@@ -1,2 +1,8 @@
 packages: .
 
+
+tests: True
+
+program-options
+  ghc-options: -Wall -Werror
+
