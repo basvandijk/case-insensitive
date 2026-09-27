@@ -133,6 +133,9 @@ instance Semigroup s => Semigroup (CI s) where
 
 instance Monoid s => Monoid (CI s) where
     mempty = CI mempty mempty
+#if !MIN_VERSION_base(4,11,0)
+    CI o1 l1 `mappend` CI o2 l2 = CI (o1 `mappend` o2) (l1 `mappend` l2)
+#endif
 
 instance Eq s => Eq (CI s) where
     (==) = (==) `on` foldedCase
