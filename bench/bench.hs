@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module Main ( main) where
@@ -8,10 +7,8 @@ import qualified Data.ByteString      as B  ( readFile )
 import qualified Data.CaseInsensitive as CI ( mk )
 import qualified NoClass              as NC ( mk )
 
-#if !MIN_VERSION_bytestring(0,10,0)
 import Control.DeepSeq ( NFData )
 instance NFData ByteString
-#endif
 
 main :: IO ()
 main = do

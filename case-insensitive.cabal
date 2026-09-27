@@ -17,10 +17,6 @@ description:   The module @Data.CaseInsensitive@ provides the 'CI' type
                etc.. Comparisons of values of the resulting type will be
                insensitive to cases.
 tested-with:
-  GHC==7.10,
-  GHC==8.0,
-  GHC==8.2,
-  GHC==8.10,
   GHC==9.2,
   GHC==9.4,
   GHC==9.6,
@@ -37,7 +33,7 @@ source-repository head
 
 Library
   ghc-options: -Wall
-  build-depends: base             >= 3 && < 5
+  build-depends: base             >= 4.11 && < 5
                , bytestring       >= 0.9
                , text             >= 0.3
                , deepseq          >= 1.1
