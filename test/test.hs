@@ -14,7 +14,9 @@ import qualified Data.Text.Lazy             as TL   ( pack, toUpper )
 import           Test.Framework                     ( defaultMain, testGroup )
 import           Test.Framework.Providers.HUnit     ( testCase )
 import           Test.HUnit                         ( assertEqual )
+#if __GLASGOW_HASKELL__ >= 800
 import           Language.Haskell.TH.Syntax         ( lift )
+#endif
 
 main :: IO ()
 main = defaultMain
