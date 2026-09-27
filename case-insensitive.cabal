@@ -1,8 +1,8 @@
+cabal-version: 3.0
 name:          case-insensitive
 version:       1.2.1.0
-cabal-version: >=1.8
 build-type:    Simple
-license:       BSD3
+license:       BSD-3-Clause
 license-file:  LICENSE
 copyright:     2011 Bas van Dijk
 author:        Bas van Dijk
@@ -54,8 +54,8 @@ test-suite test-case-insensitive
                , bytestring           >= 0.9
                , text                 >= 0.3
                , HUnit                >= 1.2.2
-               , test-framework       >= 0.2.4
-               , test-framework-hunit >= 0.2.4
+               , tasty                ^>= 1.5
+               , tasty-hunit          ^>= 0.10
                , template-haskell     >= 2.2
 
   ghc-options: -Wall

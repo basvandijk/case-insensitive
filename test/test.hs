@@ -12,13 +12,12 @@ import           Data.Text                          ( Text )
 import qualified Data.Text                  as T    ( pack, toUpper )
 import qualified Data.Text.Lazy             as Lazy ( Text )
 import qualified Data.Text.Lazy             as TL   ( pack, toUpper )
-import           Test.Framework                     ( defaultMain, testGroup )
-import           Test.Framework.Providers.HUnit     ( testCase )
-import           Test.HUnit                         ( assertEqual )
+import           Test.Tasty
+import           Test.Tasty.HUnit
 import           Language.Haskell.TH.Syntax         ( lift )
 
 main :: IO ()
-main = defaultMain
+main = defaultMain $ testGroup "case-insensitive"
   [ testGroup "ASCII"
     [ testCase "String"          $ assertEqual "" (CI.mk                    asciiStr)
                                                   (CI.mk (     map toUpper  asciiStr))
