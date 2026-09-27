@@ -3,6 +3,8 @@ packages: .
 
 tests: True
 
+benchmarks: True
+
 program-options
   ghc-options: -Wall -Werror
 
