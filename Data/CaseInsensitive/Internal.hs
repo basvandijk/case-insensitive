@@ -1,12 +1,4 @@
-{-# LANGUAGE CPP, DeriveDataTypeable, TemplateHaskell #-}
-
-#if __GLASGOW_HASKELL__ >= 704
-{-# LANGUAGE Unsafe #-}
-#endif
-
-#if __GLASGOW_HASKELL__ >= 800
-{-# LANGUAGE StandaloneDeriving, DeriveLift #-}
-#endif
+{-# LANGUAGE DeriveDataTypeable, TemplateHaskell, DeriveLift, Unsafe #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -40,13 +32,7 @@ import Data.Bool      ( (||) )
 import Data.Char      ( Char, toLower )
 import Data.Eq        ( Eq, (==) )
 import Data.Function  ( on )
-import Data.Monoid
-    ( Monoid
-    , mempty
-#if !MIN_VERSION_base(4,11,0)
-    , mappend
-#endif
-    )
+import Data.Monoid    ( Monoid, mempty )
 import Data.Ord       ( Ord, compare )
 import Data.String    ( IsString, fromString )
 import Data.Data      ( Data )
@@ -72,10 +58,8 @@ import Control.DeepSeq ( NFData, rnf, deepseq )
 -- from hashable:
 import Data.Hashable ( Hashable, hashWithSalt )
 
-#if __GLASGOW_HASKELL__ >= 800
 -- from template-haskell:
 import Language.Haskell.TH.Syntax ( Lift )
-#endif
 
 --------------------------------------------------------------------------------
 -- Case Insensitive Strings
@@ -98,11 +82,7 @@ data CI s = CI { original   :: !s -- ^ Retrieve the original string-like value.
                , foldedCase :: !s -- ^ Retrieve the case folded string-like value.
                                   --   (Also see 'foldCase').
                }
-          deriving (Data)
-
-#if __GLASGOW_HASKELL__ >= 800
-deriving instance (Lift s) => Lift (CI s)
-#endif
+          deriving (Data, Lift)
 
 -- | Make the given string-like value case insensitive.
 mk :: FoldCase s => s -> CI s
@@ -133,9 +113,6 @@ instance Semigroup s => Semigroup (CI s) where
 
 instance Monoid s => Monoid (CI s) where
     mempty = CI mempty mempty
-#if !MIN_VERSION_base(4,11,0)
-    CI o1 l1 `mappend` CI o2 l2 = CI (o1 `mappend` o2) (l1 `mappend` l2)
-#endif
 
 instance Eq s => Eq (CI s) where
     (==) = (==) `on` foldedCase

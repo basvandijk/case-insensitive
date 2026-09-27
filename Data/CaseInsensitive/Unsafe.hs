@@ -1,8 +1,4 @@
-{-# LANGUAGE CPP, NoImplicitPrelude #-}
-
-#if __GLASGOW_HASKELL__ >= 704
-{-# LANGUAGE Unsafe #-}
-#endif
+{-# LANGUAGE NoImplicitPrelude, Unsafe #-}
 
 -----------------------------------------------------------------------------
 -- |
