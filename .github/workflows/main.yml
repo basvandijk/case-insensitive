@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout mhs repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: augustss/MicroHs
           ref: v0.16.0.0
@@ -75,13 +75,9 @@ jobs:
           cd mhs
           make minstall
 
-      - name: checkout transformers repo
-        uses: actions/checkout@v4
-        with:
-          path: transformers
+      - uses: actions/checkout@v7
 
-      - name: compile and install transformers package
+      - name: "MicroCabal: Build"
         run: |
           PATH="$HOME/.mcabal/bin:$PATH"
-          cd transformers
           mcabal -r install
