@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TemplateHaskell, CPP #-}
 module Main ( main ) where
 
 import           Data.ByteString                    ( ByteString )
