@@ -34,7 +34,7 @@ source-repository head
 Library
   ghc-options: -Wall
   build-depends: base             >= 4.11 && < 5
-               , bytestring       >= 0.9
+               , bytestring       >= 0.11.3
                , text             >= 0.3
                , deepseq          >= 1.1
                , hashable         >= 1.0

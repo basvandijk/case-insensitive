@@ -47,6 +47,7 @@ import qualified Data.List as L ( map )
 -- from bytestring:
 import qualified Data.ByteString      as B  ( ByteString, map )
 import qualified Data.ByteString.Lazy as BL ( ByteString, map )
+import qualified Data.ByteString.Short as BS ( ShortByteString, map )
 
 -- from text:
 import qualified Data.Text      as T  ( Text, toCaseFold )
@@ -157,6 +158,9 @@ instance FoldCase B.ByteString where foldCase = B.map toLower8
 
 -- | Note that @foldCase@ on @'BL.ByteString's@ is only guaranteed to be correct for ISO-8859-1 encoded strings!
 instance FoldCase BL.ByteString where foldCase = BL.map toLower8
+
+-- | Note that @foldCase@ on @'BL.ByteString's@ is only guaranteed to be correct for ISO-8859-1 encoded strings!
+instance FoldCase BS.ShortByteString where foldCase = BS.map toLower8
 
 instance FoldCase Char where
     foldCase     = toLower
