@@ -39,7 +39,7 @@ jobs:
         include:
           - ghc: "7.10"
             os: "windows-latest"
-          - ghc: "8.0"
+          - ghc: "8.2"
             os: "windows-latest"
           - ghc: "8.10"
             os: "windows-latest"

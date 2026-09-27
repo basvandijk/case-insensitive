@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell, CPP #-}
 module Main ( main ) where
 
 import           Data.ByteString                    ( ByteString )
@@ -13,6 +14,7 @@ import qualified Data.Text.Lazy             as TL   ( pack, toUpper )
 import           Test.Framework                     ( defaultMain, testGroup )
 import           Test.Framework.Providers.HUnit     ( testCase )
 import           Test.HUnit                         ( assertEqual )
+import           Language.Haskell.TH.Syntax         ( lift )
 
 main :: IO ()
 main = defaultMain
@@ -40,6 +42,12 @@ main = defaultMain
     , testCase "Lazy.Text"       $ assertEqual "" (CI.mk                    iso_8859_1LTxt)
                                                   (CI.mk (      TL.toUpper  iso_8859_1LTxt))
     ]
+#if __GLASGOW_HASKELL__ >= 800
+  , testGroup "Lift Instance"
+    [ testCase "String"          $ assertEqual "" $(lift $ CI.mk "aBc")
+                                                  (CI.mk "abc")
+    ]
+#endif
   ]
 
 
