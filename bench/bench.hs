@@ -7,9 +7,6 @@ import qualified Data.ByteString      as B  ( readFile )
 import qualified Data.CaseInsensitive as CI ( mk )
 import qualified NoClass              as NC ( mk )
 
-import Control.DeepSeq ( NFData )
-instance NFData ByteString
-
 main :: IO ()
 main = do
   bs <- B.readFile "pg2189.txt"
