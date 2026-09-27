@@ -40,11 +40,16 @@ import Data.Bool      ( (||) )
 import Data.Char      ( Char, toLower )
 import Data.Eq        ( Eq, (==) )
 import Data.Function  ( on )
-import Data.Monoid    ( Monoid, mempty, mappend )
+import Data.Monoid
+    ( Monoid
+    , mempty
+#if !MIN_VERSION_base(4,11,0)
+    , mappend
+#endif
+    )
 import Data.Ord       ( Ord, compare )
 import Data.String    ( IsString, fromString )
 import Data.Data      ( Data )
-import Data.Typeable  ( Typeable )
 import Data.Word      ( Word8 )
 import Prelude        ( (.), fmap, (&&), (+), (<=), otherwise )
 import Text.Read      ( Read, readPrec )
@@ -52,11 +57,6 @@ import Text.Show      ( Show, showsPrec )
 import Data.Semigroup ( Semigroup, (<>) )
 
 import qualified Data.List as L ( map )
-
-#if __GLASGOW_HASKELL__ < 700
-import Control.Monad ( (>>) )
-import Prelude       ( fromInteger )
-#endif
 
 -- from bytestring:
 import qualified Data.ByteString      as B  ( ByteString, map )
@@ -98,7 +98,7 @@ data CI s = CI { original   :: !s -- ^ Retrieve the original string-like value.
                , foldedCase :: !s -- ^ Retrieve the case folded string-like value.
                                   --   (Also see 'foldCase').
                }
-          deriving (Data, Typeable)
+          deriving (Data)
 
 #if __GLASGOW_HASKELL__ >= 800
 deriving instance (Lift s) => Lift (CI s)
