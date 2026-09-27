@@ -81,3 +81,8 @@ jobs:
         run: |
           PATH="$HOME/.mcabal/bin:$PATH"
           mcabal -r install
+
+      - name: "MicroCabal: Test"
+        run: |
+          PATH="$HOME/.mcabal/bin:$PATH"
+          mcabal -r test
