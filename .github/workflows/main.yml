@@ -59,3 +59,29 @@ jobs:
 
       - name: "Cabal: Test"
         run: cabal test all --enable-tests
+
+  mhs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout mhs repo
+        uses: actions/checkout@v4
+        with:
+          repository: augustss/MicroHs
+          ref: v0.16.0.0
+          path: mhs
+
+      - name: make and install mhs
+        run: |
+          cd mhs
+          make minstall
+
+      - name: checkout transformers repo
+        uses: actions/checkout@v4
+        with:
+          path: transformers
+
+      - name: compile and install transformers package
+        run: |
+          PATH="$HOME/.mcabal/bin:$PATH"
+          cd transformers
+          mcabal -r install
