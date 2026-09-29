@@ -63,26 +63,6 @@ jobs:
   mhs:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout mhs repo
-        uses: actions/checkout@v7
-        with:
-          repository: augustss/MicroHs
-          ref: v0.16.0.0
-          path: mhs
-
-      - name: make and install mhs
-        run: |
-          cd mhs
-          make minstall
-
-      - uses: actions/checkout@v7
-
-      - name: "MicroCabal: Build"
-        run: |
-          PATH="$HOME/.mcabal/bin:$PATH"
-          mcabal -r install
-
-      - name: "MicroCabal: Test"
-        run: |
-          PATH="$HOME/.mcabal/bin:$PATH"
-          mcabal -r test
+      - uses: actions/checkout@v6
+      - uses: sol/setup-MicroHs@nightly
+      - run: mcabal -r test
