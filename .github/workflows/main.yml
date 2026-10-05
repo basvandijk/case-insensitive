@@ -59,3 +59,10 @@ jobs:
 
       - name: "Cabal: Test"
         run: cabal test all --enable-tests
+
+  mhs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: sol/setup-MicroHs@nightly
+      - run: mcabal -r test
