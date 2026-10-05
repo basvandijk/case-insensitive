@@ -60,7 +60,9 @@ import Control.DeepSeq ( NFData, rnf, deepseq )
 import Data.Hashable ( Hashable, hashWithSalt )
 
 -- from template-haskell:
+#ifdef __GLASGOW_HASKELL__
 import Language.Haskell.TH.Syntax ( Lift )
+#endif
 
 --------------------------------------------------------------------------------
 -- Case Insensitive Strings

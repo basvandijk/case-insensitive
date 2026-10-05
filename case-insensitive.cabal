@@ -55,7 +55,8 @@ test-suite test-case-insensitive
                , HUnit                >= 1.2.2
                , tasty                ^>= 1.5
                , tasty-hunit          ^>= 0.10
-               , template-haskell     >= 2.2
+  if impl(ghc)
+    build-depends: template-haskell >= 2.2
 
   ghc-options: -Wall
 
