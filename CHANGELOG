@@ -1,3 +1,10 @@
+1.2.2.0
+
+* Drop support for old GHC versions (support GHC 9.2+, MHS)
+* Add `Lift` instance to `CI`
+* Add `FoldCase` instance for `ShortByteString`
+* Tighten dependency bounds.
+
 1.2.1.0
 
 *  Add traverse
