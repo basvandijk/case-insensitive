@@ -33,11 +33,11 @@ source-repository head
 
 Library
   ghc-options: -Wall
-  build-depends: base             >= 4.11 && < 5
-               , bytestring       >= 0.11.3
-               , text             >= 0.3
-               , deepseq          >= 1.1
-               , hashable         >= 1.0
+  build-depends: base             >= 4.16 && < 5
+               , bytestring       >= 0.11.3 && < 0.13
+               , text             >= 2.0 && <2.2
+               , deepseq          >= 1.4.6 && < 1.6
+               , hashable         >= 1.4.0.1 && < 1.6
   if impl(ghc)
     build-depends: template-haskell >= 2.2
   exposed-modules: Data.CaseInsensitive, Data.CaseInsensitive.Unsafe
