@@ -49,7 +49,7 @@ library
     text >=2.0 && <2.2,
 
   if impl(ghc)
-    build-depends: template-haskell >=2.2
+    build-depends: template-haskell >=2.2 && <3
   exposed-modules:
     Data.CaseInsensitive
     Data.CaseInsensitive.Unsafe
