@@ -1,77 +1,89 @@
 cabal-version: 3.0
-name:          case-insensitive
-version:       1.2.2.0
-build-type:    Simple
-license:       BSD-3-Clause
-license-file:  LICENSE
-copyright:     2011 Bas van Dijk
-author:        Bas van Dijk
-maintainer:    Bas van Dijk <v.dijk.bas@gmail.com>
-homepage:      https://github.com/basvandijk/case-insensitive
-bug-reports:   https://github.com/basvandijk/case-insensitive/issues
-category:      Data, Text
-synopsis:      Case insensitive string comparison
-description:   The module @Data.CaseInsensitive@ provides the 'CI' type
-               constructor which can be parameterised by a string-like
-               type like: 'String', 'ByteString', 'Text',
-               etc.. Comparisons of values of the resulting type will be
-               insensitive to cases.
-tested-with:
-  GHC==9.2,
-  GHC==9.4,
-  GHC==9.6,
-  GHC==9.8,
-  GHC==9.10,
-  GHC==9.12,
-  GHC==9.14
+name: case-insensitive
+version: 1.2.2.0
+build-type: Simple
+license: BSD-3-Clause
+license-file: LICENSE
+copyright: 2011 Bas van Dijk
+author: Bas van Dijk
+maintainer: Bas van Dijk <v.dijk.bas@gmail.com>
+homepage: https://github.com/basvandijk/case-insensitive
+bug-reports: https://github.com/basvandijk/case-insensitive/issues
+category: Data, Text
+synopsis: Case insensitive string comparison
+description:
+  The module @Data.CaseInsensitive@ provides the 'CI' type
+  constructor which can be parameterised by a string-like
+  type like: 'String', 'ByteString', 'Text',
+  etc.. Comparisons of values of the resulting type will be
+  insensitive to cases.
 
-extra-source-files: README.markdown CHANGELOG pg2189.txt
+tested-with:
+  ghc ==9.10
+  ghc ==9.12
+  ghc ==9.14
+  ghc ==9.2
+  ghc ==9.4
+  ghc ==9.6
+  ghc ==9.8
+
+extra-source-files:
+  CHANGELOG
+  pg2189.txt
+  README.markdown
 
 source-repository head
-  Type:     git
-  Location: git://github.com/basvandijk/case-insensitive.git
+  type: git
+  location: git://github.com/basvandijk/case-insensitive.git
 
-Library
+library
   default-language: Haskell2010
   ghc-options: -Wall
-  build-depends: base             >= 4.16 && < 5
-               , bytestring       >= 0.11.3 && < 0.13
-               , text             >= 2.0 && <2.2
-               , deepseq          >= 1.4.6 && < 1.6
-               , hashable         >= 1.4.0.1 && < 1.6
+  build-depends:
+    base >=4.16 && <5,
+    bytestring >=0.11.3 && <0.13,
+    deepseq >=1.4.6 && <1.6,
+    hashable >=1.4.0.1 && <1.6,
+    text >=2.0 && <2.2,
+
   if impl(ghc)
-    build-depends: template-haskell >= 2.2
-  exposed-modules: Data.CaseInsensitive, Data.CaseInsensitive.Unsafe
+    build-depends: template-haskell >=2.2
+  exposed-modules:
+    Data.CaseInsensitive
+    Data.CaseInsensitive.Unsafe
+
   other-modules: Data.CaseInsensitive.Internal
 
 test-suite test-case-insensitive
   default-language: Haskell2010
-  type:           exitcode-stdio-1.0
-  main-is:        test.hs
+  type: exitcode-stdio-1.0
+  main-is: test.hs
   hs-source-dirs: test
-
-  build-depends: case-insensitive
-               , base                 >= 3 && < 5
-               , bytestring           >= 0.9
-               , text                 >= 0.3
-               , HUnit                >= 1.2.2
-               , tasty                ^>= 1.5
-               , tasty-hunit          ^>= 0.10
-               , template-haskell     >= 2.2
+  build-depends:
+    base >=3 && <5,
+    bytestring >=0.9,
+    case-insensitive,
+    HUnit >=1.2.2,
+    tasty ^>=1.5,
+    tasty-hunit ^>=0.10,
+    template-haskell >=2.2,
+    text >=0.3,
 
   ghc-options: -Wall
 
 benchmark bench-case-insensitive
   default-language: Haskell2010
-  type:           exitcode-stdio-1.0
-  main-is:        bench.hs
-  other-modules:  NoClass
+  type: exitcode-stdio-1.0
+  main-is: bench.hs
+  other-modules: NoClass
   hs-source-dirs: bench
+  ghc-options:
+    -Wall
+    -O2
 
-  ghc-options:    -Wall -O2
-
-  build-depends: case-insensitive
-               , base       >= 3 && < 5
-               , bytestring >= 0.9
-               , criterion  >= 0.6.1
-               , deepseq    >= 1.1
+  build-depends:
+    base >=3 && <5,
+    bytestring >=0.9,
+    case-insensitive,
+    criterion >=0.6.1,
+    deepseq >=1.1,
