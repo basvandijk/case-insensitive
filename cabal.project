@@ -6,5 +6,5 @@ tests: True
 benchmarks: True
 
 program-options
-  ghc-options: -Wall -Werror
+  ghc-options: -Wall -Werror -O2
 
