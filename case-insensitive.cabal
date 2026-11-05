@@ -27,10 +27,12 @@ tested-with:
   ghc ==9.6
   ghc ==9.8
 
-extra-source-files:
+extra-doc-files:
   CHANGELOG
-  pg2189.txt
   README.markdown
+
+extra-source-files:
+  pg2189.txt
 
 source-repository head
   type: git
